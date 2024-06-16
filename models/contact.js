@@ -1,16 +1,18 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // Importing the mongoose module
 
+// Defining the schema for the Contact model
 const contactSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        require:true
+    name: {
+        type: String, // Name should be a string
+        required: true // Name is a required field
     },
-    phone:{
-        type:String,
-        require:true
+    phone: {
+        type: String, // Phone should be a string
+        required: true // Phone is a required field
     }
-})
+});
 
-const Contact = mongoose.model("Contact",contactSchema);
+// Creating the Contact model using the schema
+const Contact = mongoose.model("Contact", contactSchema);
 
-module.exports = Contact;
+module.exports = Contact; // Exporting the Contact model
