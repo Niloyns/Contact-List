@@ -2,47 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> <!-- Setting the character encoding -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Setting the viewport for responsive design -->
     <title>
-        <%= title %>
+        <%= title %> <!-- Rendering the title dynamically -->
     </title>
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css"> <!-- Linking to the CSS file -->
     <script src="https://kit.fontawesome.com/d646a66da9.js" crossorigin="anonymous"></script>
+    <!-- Linking to FontAwesome -->
 </head>
 
 <body>
     <h1><i class="fa-solid fa-id-badge"></i>
-        <%= title %>
+        <%= title %> <!-- Rendering the title dynamically -->
     </h1>
     <div class="contact-list">
         <ul>
-            <% list.forEach((item, index)=> { %>
+            <% list.forEach((item, index)=> { %> <!-- Looping through the contact list -->
                 <li>
                     <div class="details">
                         <p>
-                            <%= (index + 1) %>. <%= item.name %>
+                            <%= (index + 1) %>. <%= item.name %> <!-- Displaying the contact name with an index -->
                         </p>
                         <p>
-                            <%= item.phone %>
+                            <%= item.phone %> <!-- Displaying the contact phone number -->
                         </p>
                     </div>
                     <div class="delete">
-                        <a href="/delete-contact/<%= item._id %>">
-                            <i class="fa-solid fa-delete-left"></i>
+                        <a href="/delete-contact/<%= item._id %>"> <!-- Link to delete the contact -->
+                            <i class="fa-solid fa-delete-left"></i> <!-- Delete icon -->
                         </a>
                     </div>
                 </li>
-                <% }); %>
+                <% }); %> <!-- End of the loop -->
         </ul>
     </div>
 
-    <form action="/create-contact" method="POST">
-        <input type="text" name="name" placeholder="Enter name">
-        <input type="number" name="phone" placeholder="Enter phone">
-        <button type="submit">Submit</button>
+    <form action="/create-contact" method="POST"> <!-- Form to create a new contact -->
+        <input type="text" name="name" placeholder="Enter name"> <!-- Input field for name -->
+        <input type="number" name="phone" placeholder="Enter phone"> <!-- Input field for phone number -->
+        <button type="submit">Submit</button> <!-- Submit button -->
     </form>
-    <script src="/js/index.js"></script>
+    <script src="/js/index.js"></script> <!-- Linking to the JavaScript file -->
 </body>
 
 </html>

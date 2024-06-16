@@ -1,59 +1,56 @@
-const express = require("express");
-// const ejs = require("ejs");
-const path = require("path")
+const express = require("express"); // Importing the express module
+// const ejs = require("ejs"); // Importing the ejs module (commented out because it's not needed here)
+const path = require("path"); // Importing the path module for handling and transforming file paths
 
-const db = require("./config/mongoose");
-const Contact = require("./models/contact");
+const db = require("./config/mongoose"); // Importing the mongoose configuration file to connect to MongoDB
+const Contact = require("./models/contact"); // Importing the Contact model
 
-const app = express();
+const app = express(); // Initializing the express app
 
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"Views"));
+app.set("view engine", "ejs"); // Setting EJS as the template engine
+app.set("views", path.join(__dirname, "views")); // Setting the directory for views
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("assets"));
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
+app.use(express.static("assets")); // Middleware to serve static files from the "assets" directory
 
-
-
+// Route to fetch and display contacts
 app.get("/", async (req, res) => {
     try {
-        const contacts = await Contact.find(); // Await the result of the database query
-        res.render("index", { title: "Contact List", list: contacts }); // Pass the fetched contacts to the view
+        const contacts = await Contact.find(); // Fetch all contacts from the database
+        res.render("index", { title: "Contact List", list: contacts }); // Render the index view with the fetched contacts
     } catch (error) {
-        console.error("Error fetching contacts", error);
-        res.status(500).send("Internal Server Error");
+        console.error("Error fetching contacts", error); // Log any errors to the console
+        res.status(500).send("Internal Server Error"); // Send a 500 error response if something goes wrong
     }
 });
 
-//Stored data in DB
-app.post("/create-contact", async (req,res)=>{
+// Route to create a new contact
+app.post("/create-contact", async (req, res) => {
     try {
-    const contactData = await Contact(req.body);
-    console.log(req.body);
-    console.log(contactData);
-    await contactData.save();
-    // res.redirect("/");
-    res.redirect("back");
+        const contactData = await Contact(req.body); // Create a new Contact instance with the request body data
+        console.log(req.body); // Log the request body to the console
+        console.log(contactData); // Log the contact data to the console
+        await contactData.save(); // Save the new contact to the database
+        res.redirect("back"); // Redirect back to the previous page
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).send("Internal Server Error"); // Send a 500 error response if something goes wrong
     }
 });
 
+// Route to delete a contact by ID
 app.get("/delete-contact/:id", async (req, res) => {
     try {
-        // const contactId = req.query.id;
-        const contactId = req.params.id;
-        console.log(contactId);
-        await Contact.findByIdAndDelete(contactId); // Delete contact from the database
-        res.redirect("back");
+        const contactId = req.params.id; // Get the contact ID from the request parameters
+        console.log(contactId); // Log the contact ID to the console
+        await Contact.findByIdAndDelete(contactId); // Find and delete the contact by ID
+        res.redirect("back"); // Redirect back to the previous page
     } catch (error) {
-        console.error("Error deleting contact", error);
-        res.status(500).send("Internal Server Error");
+        console.error("Error deleting contact", error); // Log any errors to the console
+        res.status(500).send("Internal Server Error"); // Send a 500 error response if something goes wrong
     }
 });
 
-
-
-app.listen(5000,()=>{
-    console.log("running 5000");
+// Start the server on port 5000
+app.listen(5000, () => {
+    console.log("running 5000"); // Log a message to indicate the server is running
 });
