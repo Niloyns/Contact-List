@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Setting the viewport for responsive design -->
     <title>
-        <%= title %> <!-- Rendering the title dynamically -->
-    </title>
+        <%= title %>
+    </title> <!-- Rendering the title dynamically -->
     <link rel="stylesheet" href="/css/index.css"> <!-- Linking to the CSS file -->
     <script src="https://kit.fontawesome.com/d646a66da9.js" crossorigin="anonymous"></script>
     <!-- Linking to FontAwesome -->
@@ -19,15 +19,15 @@
     </h1>
     <div class="contact-list">
         <ul>
-            <% list.forEach((item, index)=> { %> <!-- Looping through the contact list -->
+            <% list.forEach((item, index)=> { %>
                 <li>
                     <div class="details">
                         <p>
-                            <%= (index + 1) %>. <%= item.name %> <!-- Displaying the contact name with an index -->
-                        </p>
+                            <%= (index + 1) %>. <%= item.name %>
+                        </p> <!-- Displaying the contact name with an index -->
                         <p>
-                            <%= item.phone %> <!-- Displaying the contact phone number -->
-                        </p>
+                            <%= item.phone %>
+                        </p> <!-- Displaying the contact phone number -->
                     </div>
                     <div class="delete">
                         <a href="/delete-contact/<%= item._id %>"> <!-- Link to delete the contact -->

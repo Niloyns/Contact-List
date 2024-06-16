@@ -28,6 +28,18 @@ app.get("/", async (req, res) => {
 app.post("/create-contact", async (req, res) => {
     try {
         const contactData = await Contact(req.body); // Create a new Contact instance with the request body data
+        if (!contactData.name || !contactData.phone) {
+            return res.send(`
+                <html>
+                  <body>
+                    <script>
+                      alert('Plese enter name and phone number');
+                      window.history.back(); // Go back to the previous page
+                    </script>
+                  </body>
+                </html>
+              `);
+        }
         console.log(req.body); // Log the request body to the console
         console.log(contactData); // Log the contact data to the console
         await contactData.save(); // Save the new contact to the database
